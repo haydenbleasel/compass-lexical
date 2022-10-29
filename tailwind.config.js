@@ -10,13 +10,13 @@ module.exports = {
         DEFAULT: {
           css: {
             li: {
+              margin: '0',
               '&[role="checkbox"]': {
                 listStyle: 'none',
                 display: 'flex',
                 alignItems: 'center',
                 gap: '0.5rem',
                 outline: 'none',
-                margin: '0',
                 '&::before': {
                   content: "''",
                   width: '16px',
