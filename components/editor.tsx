@@ -10,6 +10,7 @@ import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
 import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin';
 import { LinkPlugin } from '@lexical/react/LexicalLinkPlugin';
 import { ListPlugin } from '@lexical/react/LexicalListPlugin';
+import { CheckListPlugin } from '@lexical/react/LexicalCheckListPlugin';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import toast from 'react-hot-toast';
 import { LinkNode } from '@lexical/link';
@@ -84,6 +85,7 @@ const Editor: FC = () => {
         <HistoryPlugin />
         <LinkPlugin />
         <ListPlugin />
+        <CheckListPlugin />
         <MyCustomAutoFocusPlugin />
       </LexicalComposer>
     </div>
