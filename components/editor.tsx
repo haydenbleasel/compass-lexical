@@ -23,6 +23,12 @@ import { TableNode, TableCellNode, TableRowNode } from '@lexical/table';
 import { HeadingNode, QuoteNode } from '@lexical/rich-text';
 import { CodeHighlightNode, CodeNode } from '@lexical/code';
 import { HorizontalRuleNode } from '@lexical/react/LexicalHorizontalRuleNode';
+import {
+  CHECK_LIST,
+  ELEMENT_TRANSFORMERS,
+  TEXT_FORMAT_TRANSFORMERS,
+  TEXT_MATCH_TRANSFORMERS,
+} from '@lexical/markdown';
 
 const theme: EditorThemeClasses = {
   // Theme styling goes here
@@ -129,7 +135,14 @@ const Editor: FC = () => {
         <TablePlugin />
         <AutoLinkPlugin matchers={MATCHERS} />
         <AutoScrollPlugin scrollRef={containerWithScrollRef} />
-        <MarkdownShortcutPlugin />
+        <MarkdownShortcutPlugin
+          transformers={[
+            CHECK_LIST,
+            ...ELEMENT_TRANSFORMERS,
+            ...TEXT_FORMAT_TRANSFORMERS,
+            ...TEXT_MATCH_TRANSFORMERS,
+          ]}
+        />
         <MyCustomAutoFocusPlugin />
       </LexicalComposer>
     </div>
