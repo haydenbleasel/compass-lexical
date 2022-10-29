@@ -11,10 +11,12 @@ import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin';
 import { LinkPlugin } from '@lexical/react/LexicalLinkPlugin';
 import { ListPlugin } from '@lexical/react/LexicalListPlugin';
 import { CheckListPlugin } from '@lexical/react/LexicalCheckListPlugin';
+import { TablePlugin } from '@lexical/react/LexicalTablePlugin';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import toast from 'react-hot-toast';
 import { LinkNode } from '@lexical/link';
 import { ListNode, ListItemNode } from '@lexical/list';
+import { TableNode, TableCellNode, TableRowNode } from '@lexical/table';
 
 const theme: EditorThemeClasses = {
   // Theme styling goes here
@@ -67,7 +69,14 @@ const Editor: FC = () => {
       namespace: 'Compass',
       theme,
       onError,
-      nodes: [LinkNode, ListNode, ListItemNode],
+      nodes: [
+        LinkNode,
+        ListNode,
+        ListItemNode,
+        TableNode,
+        TableCellNode,
+        TableRowNode,
+      ],
     };
 
   return (
@@ -86,6 +95,7 @@ const Editor: FC = () => {
         <LinkPlugin />
         <ListPlugin />
         <CheckListPlugin />
+        <TablePlugin />
         <MyCustomAutoFocusPlugin />
       </LexicalComposer>
     </div>
