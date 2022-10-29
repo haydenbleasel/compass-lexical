@@ -14,11 +14,15 @@ import { CheckListPlugin } from '@lexical/react/LexicalCheckListPlugin';
 import { TablePlugin } from '@lexical/react/LexicalTablePlugin';
 import { AutoLinkPlugin } from '@lexical/react/LexicalAutoLinkPlugin';
 import { AutoScrollPlugin } from '@lexical/react/LexicalAutoScrollPlugin';
+import { MarkdownShortcutPlugin } from '@lexical/react/LexicalMarkdownShortcutPlugin';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import toast from 'react-hot-toast';
 import { LinkNode, AutoLinkNode } from '@lexical/link';
 import { ListNode, ListItemNode } from '@lexical/list';
 import { TableNode, TableCellNode, TableRowNode } from '@lexical/table';
+import { HeadingNode, QuoteNode } from '@lexical/rich-text';
+import { CodeHighlightNode, CodeNode } from '@lexical/code';
+import { HorizontalRuleNode } from '@lexical/react/LexicalHorizontalRuleNode';
 
 const theme: EditorThemeClasses = {
   // Theme styling goes here
@@ -91,6 +95,8 @@ const Editor: FC = () => {
       theme,
       onError,
       nodes: [
+        HeadingNode,
+        QuoteNode,
         LinkNode,
         ListNode,
         ListItemNode,
@@ -98,6 +104,9 @@ const Editor: FC = () => {
         TableCellNode,
         TableRowNode,
         AutoLinkNode,
+        HorizontalRuleNode,
+        CodeHighlightNode,
+        CodeNode,
       ],
     };
 
@@ -120,6 +129,7 @@ const Editor: FC = () => {
         <TablePlugin />
         <AutoLinkPlugin matchers={MATCHERS} />
         <AutoScrollPlugin scrollRef={containerWithScrollRef} />
+        <MarkdownShortcutPlugin />
         <MyCustomAutoFocusPlugin />
       </LexicalComposer>
     </div>

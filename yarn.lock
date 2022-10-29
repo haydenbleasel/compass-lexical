@@ -619,7 +619,7 @@
     "@lexical/selection" "0.5.0"
     "@lexical/utils" "0.5.0"
 
-"@lexical/code@0.5.0":
+"@lexical/code@0.5.0", "@lexical/code@^0.5.0":
   version "0.5.0"
   resolved "https://registry.yarnpkg.com/@lexical/code/-/code-0.5.0.tgz#05c92e3b077af3148a494b44f5663dea14f7631f"
   integrity sha512-GmqRaQ8EBtlu13ObSZYiGDzIsrkwRyyqI2HRVBrPo2iszLBpby+7uIncAVQVkxt1JNYOKE2n4JfxK8TSYyMtYQ==
@@ -674,7 +674,7 @@
   dependencies:
     "@lexical/utils" "0.5.0"
 
-"@lexical/markdown@0.5.0":
+"@lexical/markdown@0.5.0", "@lexical/markdown@^0.5.0":
   version "0.5.0"
   resolved "https://registry.yarnpkg.com/@lexical/markdown/-/markdown-0.5.0.tgz#3424a98e8600bc719f99bb4ab2484f0cf0e3c0f7"
   integrity sha512-02RLx7PdVzvYxvx65FTbXkW6KcjQZ1waAaMDNKdtBV9r9Mv2Y2XunCUjErYHQ1JN9JkGGv0+JuliRT7qZTsF+Q==
@@ -724,7 +724,7 @@
     "@lexical/utils" "0.5.0"
     "@lexical/yjs" "0.5.0"
 
-"@lexical/rich-text@0.5.0":
+"@lexical/rich-text@0.5.0", "@lexical/rich-text@^0.5.0":
   version "0.5.0"
   resolved "https://registry.yarnpkg.com/@lexical/rich-text/-/rich-text-0.5.0.tgz#9b7ddacdd74a49761f15486ed2846c5117a55d14"
   integrity sha512-JhgMn70K410j3T/2WefPpEswZ+hWF3aJMNu7zkrCf2wB+KdrrGYoeNSZUzg2r4e6BuJgS117KlD99+MDnokCuw==
