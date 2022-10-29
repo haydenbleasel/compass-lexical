@@ -4,7 +4,7 @@ import type { ComponentProps, FC } from 'react';
 import { useEffect } from 'react';
 
 import { LexicalComposer } from '@lexical/react/LexicalComposer';
-import { PlainTextPlugin } from '@lexical/react/LexicalPlainTextPlugin';
+import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin';
 import { ContentEditable } from '@lexical/react/LexicalContentEditable';
 import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
 import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin';
@@ -67,7 +67,7 @@ const Editor: FC = () => {
   return (
     <div className="prose relative mx-auto p-4">
       <LexicalComposer initialConfig={initialConfig}>
-        <PlainTextPlugin
+        <RichTextPlugin
           contentEditable={<ContentEditable className="outline-none" />}
           placeholder={
             <p className="pointer-events-none absolute inset-4 select-none text-base text-gray-500">
