@@ -653,7 +653,7 @@
   dependencies:
     "@lexical/selection" "0.5.0"
 
-"@lexical/link@0.5.0":
+"@lexical/link@0.5.0", "@lexical/link@^0.5.0":
   version "0.5.0"
   resolved "https://registry.yarnpkg.com/@lexical/link/-/link-0.5.0.tgz#fa5f3baa1122eb2a1be12ac7a30977eb4c557e1e"
   integrity sha512-XB8e+UPI9jeqsi7+Wr0n9SToljiS+gZmJ5gXANtR6lSZPtpcSUPs1iJZU2A2dNKXdvsZwSPCFdPL6ogFaaRvvQ==
