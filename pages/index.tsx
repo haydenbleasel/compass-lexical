@@ -1,6 +1,6 @@
-import type { EditorState } from 'lexical';
+import type { EditorState, EditorThemeClasses } from 'lexical';
 import { $getRoot, $getSelection } from 'lexical';
-import type { FC } from 'react';
+import type { ComponentProps, FC } from 'react';
 import { useEffect } from 'react';
 
 import { LexicalComposer } from '@lexical/react/LexicalComposer';
@@ -9,8 +9,9 @@ import { ContentEditable } from '@lexical/react/LexicalContentEditable';
 import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
 import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
+import toast from 'react-hot-toast';
 
-const theme = {
+const theme: EditorThemeClasses = {
   // Theme styling goes here
 };
 
@@ -50,16 +51,17 @@ const MyCustomAutoFocusPlugin = () => {
  * or throw them as needed. If you don't throw them, Lexical will
  * try to recover gracefully without losing user data.
  */
-const onError = (error) => {
-  console.error(error);
+const onError = (error: Error) => {
+  toast.error(error.message);
 };
 
 const Editor: FC = () => {
-  const initialConfig = {
-    namespace: 'MyEditor',
-    theme,
-    onError,
-  };
+  const initialConfig: ComponentProps<typeof LexicalComposer>['initialConfig'] =
+    {
+      namespace: 'Compass',
+      theme,
+      onError,
+    };
 
   return (
     <LexicalComposer initialConfig={initialConfig}>
