@@ -1,7 +1,7 @@
 import type { EditorState, EditorThemeClasses } from 'lexical';
 import { $getRoot, $getSelection } from 'lexical';
 import type { ComponentProps, FC } from 'react';
-import { useEffect } from 'react';
+import { useRef, useEffect } from 'react';
 
 import { LexicalComposer } from '@lexical/react/LexicalComposer';
 import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin';
@@ -13,6 +13,7 @@ import { ListPlugin } from '@lexical/react/LexicalListPlugin';
 import { CheckListPlugin } from '@lexical/react/LexicalCheckListPlugin';
 import { TablePlugin } from '@lexical/react/LexicalTablePlugin';
 import { AutoLinkPlugin } from '@lexical/react/LexicalAutoLinkPlugin';
+import { AutoScrollPlugin } from '@lexical/react/LexicalAutoScrollPlugin';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import toast from 'react-hot-toast';
 import { LinkNode, AutoLinkNode } from '@lexical/link';
@@ -83,6 +84,7 @@ const onError = (error: Error) => {
 };
 
 const Editor: FC = () => {
+  const containerWithScrollRef = useRef<HTMLDivElement>(null);
   const initialConfig: ComponentProps<typeof LexicalComposer>['initialConfig'] =
     {
       namespace: 'Compass',
@@ -100,7 +102,7 @@ const Editor: FC = () => {
     };
 
   return (
-    <div className="prose relative mx-auto p-4">
+    <div ref={containerWithScrollRef} className="prose relative mx-auto p-4">
       <LexicalComposer initialConfig={initialConfig}>
         <RichTextPlugin
           contentEditable={<ContentEditable className="outline-none" />}
@@ -117,6 +119,7 @@ const Editor: FC = () => {
         <CheckListPlugin />
         <TablePlugin />
         <AutoLinkPlugin matchers={MATCHERS} />
+        <AutoScrollPlugin scrollRef={containerWithScrollRef} />
         <MyCustomAutoFocusPlugin />
       </LexicalComposer>
     </div>
