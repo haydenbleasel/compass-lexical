@@ -13,6 +13,7 @@ import toast from 'react-hot-toast';
 
 const theme: EditorThemeClasses = {
   // Theme styling goes here
+  root: 'bg-white',
 };
 
 /*
@@ -64,15 +65,21 @@ const Editor: FC = () => {
     };
 
   return (
-    <LexicalComposer initialConfig={initialConfig}>
-      <PlainTextPlugin
-        contentEditable={<ContentEditable />}
-        placeholder={<div>Enter some text...</div>}
-      />
-      <OnChangePlugin onChange={onChange} />
-      <HistoryPlugin />
-      <MyCustomAutoFocusPlugin />
-    </LexicalComposer>
+    <div className="prose relative mx-auto p-4">
+      <LexicalComposer initialConfig={initialConfig}>
+        <PlainTextPlugin
+          contentEditable={<ContentEditable className="outline-none" />}
+          placeholder={
+            <p className="pointer-events-none absolute inset-4 select-none text-base text-gray-500">
+              Start typing...
+            </p>
+          }
+        />
+        <OnChangePlugin onChange={onChange} />
+        <HistoryPlugin />
+        <MyCustomAutoFocusPlugin />
+      </LexicalComposer>
+    </div>
   );
 };
 
