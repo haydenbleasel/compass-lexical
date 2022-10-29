@@ -9,9 +9,11 @@ import { ContentEditable } from '@lexical/react/LexicalContentEditable';
 import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
 import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin';
 import { LinkPlugin } from '@lexical/react/LexicalLinkPlugin';
+import { ListPlugin } from '@lexical/react/LexicalListPlugin';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import toast from 'react-hot-toast';
 import { LinkNode } from '@lexical/link';
+import { ListNode, ListItemNode } from '@lexical/list';
 
 const theme: EditorThemeClasses = {
   // Theme styling goes here
@@ -64,7 +66,7 @@ const Editor: FC = () => {
       namespace: 'Compass',
       theme,
       onError,
-      nodes: [LinkNode],
+      nodes: [LinkNode, ListNode, ListItemNode],
     };
 
   return (
@@ -81,6 +83,7 @@ const Editor: FC = () => {
         <OnChangePlugin onChange={onChange} />
         <HistoryPlugin />
         <LinkPlugin />
+        <ListPlugin />
         <MyCustomAutoFocusPlugin />
       </LexicalComposer>
     </div>

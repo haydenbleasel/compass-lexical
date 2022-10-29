@@ -660,7 +660,7 @@
   dependencies:
     "@lexical/utils" "0.5.0"
 
-"@lexical/list@0.5.0":
+"@lexical/list@0.5.0", "@lexical/list@^0.5.0":
   version "0.5.0"
   resolved "https://registry.yarnpkg.com/@lexical/list/-/list-0.5.0.tgz#6ab4e1789d037af43f3d01012d2533c7c94daf15"
   integrity sha512-TYXe4FtNL7Lk3XDEhPyUbT0Pb1TU58qZywGCdrtuRjPnF4oDvRXgg9EhYWfHzYwdsyhNgaHId+Fq41CjrwTMYg==
