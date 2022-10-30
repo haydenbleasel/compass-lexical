@@ -22,8 +22,7 @@ const Login: FC = () => {
     await setDoc(
       newDoc,
       {
-        content: '',
-        lastUpdated: new Date(),
+        content: null,
       },
       { merge: true }
     );

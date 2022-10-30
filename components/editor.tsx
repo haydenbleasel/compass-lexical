@@ -1,4 +1,5 @@
 import type { EditorState, EditorThemeClasses } from 'lexical';
+import { $createParagraphNode, $createTextNode, $getRoot } from 'lexical';
 import type { ComponentProps, FC } from 'react';
 import { useRef, useEffect } from 'react';
 
@@ -19,7 +20,7 @@ import toast from 'react-hot-toast';
 import { LinkNode, AutoLinkNode } from '@lexical/link';
 import { ListNode, ListItemNode } from '@lexical/list';
 import { TableNode, TableCellNode, TableRowNode } from '@lexical/table';
-import { HeadingNode, QuoteNode } from '@lexical/rich-text';
+import { $createHeadingNode, HeadingNode, QuoteNode } from '@lexical/rich-text';
 import { CodeHighlightNode, CodeNode } from '@lexical/code';
 import { HorizontalRuleNode } from '@lexical/react/LexicalHorizontalRuleNode';
 import {
@@ -107,12 +108,31 @@ const onError = (error: Error) => {
 };
 
 type EditorProps = {
-  defaultContent?: string;
+  defaultContent: string | null;
+};
+
+const placeholderText = () => {
+  const root = $getRoot();
+  if (root.getFirstChild() === null) {
+    const heading = $createHeadingNode('h1');
+    heading.append($createTextNode('Welcome to Compass'));
+    root.append(heading);
+    const paragraph = $createParagraphNode();
+    paragraph.append(
+      $createTextNode('Compass is a super simple '),
+      $createTextNode('notes').toggleFormat('bold'),
+      $createTextNode(' editor with Markdown support.')
+    );
+    root.append(paragraph);
+    const paragraph2 = $createParagraphNode();
+    paragraph2.append($createTextNode('Give it a try!'));
+    root.append(paragraph2);
+  }
 };
 
 const Editor: FC<EditorProps> = ({ defaultContent }) => {
   const containerWithScrollRef = useRef<HTMLDivElement>(null);
-  const editorState = defaultContent?.trim() ? defaultContent : undefined;
+  const editorState = defaultContent?.trim() ? defaultContent : placeholderText;
   const initialConfig: ComponentProps<typeof LexicalComposer>['initialConfig'] =
     {
       namespace: 'Compass',

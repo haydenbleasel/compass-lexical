@@ -14,9 +14,7 @@ const Home: NextPage = () => {
   const auth = getAuth();
   const firestore = getFirestore();
   const [user, setUser] = useState<User | null | undefined>(undefined);
-  const [defaultContent, setDefaultContent] = useState<string | undefined>(
-    undefined
-  );
+  const [defaultContent, setDefaultContent] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
   onAuthStateChanged(auth, setUser);
@@ -27,7 +25,7 @@ const Home: NextPage = () => {
       const profile = await getDoc(profileRef);
 
       if (profile.exists()) {
-        const { content } = profile.data() as { content: string };
+        const { content } = profile.data() as { content: string | null };
 
         setDefaultContent(content);
       }

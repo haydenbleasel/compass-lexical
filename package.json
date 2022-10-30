@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "concurrently \"yarn:next\" \"yarn:emulators\"",
+    "next": "next dev",
+    "emulators": "firebase emulators:start",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -36,6 +38,7 @@
     "@typescript-eslint/eslint-plugin": "^5.41.0",
     "@typescript-eslint/parser": "^5.41.0",
     "autoprefixer": "^10.4.13",
+    "concurrently": "^7.5.0",
     "eslint": "^8.26.0",
     "eslint-config-next": "13.0.0",
     "eslint-plugin-import": "^2.26.0",
