@@ -1,7 +1,7 @@
 import type { EditorState } from 'lexical';
 
 import type { ComponentProps, FC } from 'react';
-import { useRef, useEffect } from 'react';
+import { useRef } from 'react';
 
 import { LexicalComposer } from '@lexical/react/LexicalComposer';
 import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin';
@@ -16,11 +16,11 @@ import { AutoLinkPlugin } from '@lexical/react/LexicalAutoLinkPlugin';
 import { AutoScrollPlugin } from '@lexical/react/LexicalAutoScrollPlugin';
 import { MarkdownShortcutPlugin } from '@lexical/react/LexicalMarkdownShortcutPlugin';
 import { HashtagPlugin } from '@lexical/react/LexicalHashtagPlugin';
-import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import toast from 'react-hot-toast';
 import { getAuth } from 'firebase/auth';
 import { doc, getFirestore, updateDoc } from 'firebase/firestore';
 import type { FirebaseError } from 'firebase/app';
+import { FocusPlugin } from '../plugins/focus';
 import nodes from '../lib/nodes';
 import transformers from '../lib/transformers';
 import sample from '../lib/sample';
@@ -51,28 +51,6 @@ const onChange = (editorState: EditorState) => {
   });
 };
 
-/*
- * Lexical React plugins are React components, which makes them
- * highly composable. Furthermore, you can lazy load plugins if
- * desired, so you don't pay the cost for plugins until you
- * actually use them.
- */
-const MyCustomAutoFocusPlugin = () => {
-  const [editor] = useLexicalComposerContext();
-
-  useEffect(() => {
-    // Focus the editor when the effect fires!
-    editor.focus();
-  }, [editor]);
-
-  return null;
-};
-
-/*
- * Catch any errors that occur during Lexical updates and log them
- * or throw them as needed. If you don't throw them, Lexical will
- * try to recover gracefully without losing user data.
- */
 const onError = (error: Error) => {
   toast.error(error.message);
 };
@@ -118,7 +96,7 @@ const Editor: FC<EditorProps> = ({ defaultContent }) => {
         <AutoScrollPlugin scrollRef={containerWithScrollRef} />
         <MarkdownShortcutPlugin transformers={transformers} />
         <HashtagPlugin />
-        <MyCustomAutoFocusPlugin />
+        <FocusPlugin />
       </LexicalComposer>
     </div>
   );
