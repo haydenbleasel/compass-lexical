@@ -59,11 +59,9 @@ const MATCHERS = [
  */
 const onChange = (editorState: EditorState) => {
   editorState.read(() => {
-    // Read the contents of the EditorState here.
-    const root = $getRoot();
-    const selection = $getSelection();
+    const content = JSON.stringify(editorState);
 
-    console.log(root, selection);
+    console.log(content, 'content');
   });
 };
 

@@ -4,6 +4,7 @@ import {
   getAuth,
   signInWithEmailAndPassword,
 } from 'firebase/auth';
+import { doc, getFirestore, setDoc } from 'firebase/firestore';
 import type { FC, FormEventHandler } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
@@ -12,6 +13,17 @@ const Login: FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const auth = getAuth();
+  const firestore = getFirestore();
+
+  const createAccount = async () => {
+    const newUser = await createUserWithEmailAndPassword(auth, email, password);
+    const newDoc = doc(firestore, 'users', newUser.user.uid);
+
+    await setDoc(newDoc, {
+      content: '',
+      lastUpdated: new Date(),
+    });
+  };
 
   const handleSubmit: FormEventHandler = async (event) => {
     event.preventDefault();
@@ -31,7 +43,7 @@ const Login: FC = () => {
                   type="button"
                   className="block w-full rounded-md bg-gray-900 p-3 text-white"
                   onClick={async () => {
-                    await createUserWithEmailAndPassword(auth, email, password);
+                    await createAccount();
                     toast.dismiss(customToast.id);
                   }}
                 >
