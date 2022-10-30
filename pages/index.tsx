@@ -3,13 +3,14 @@ import dynamic from 'next/dynamic';
 import type { User } from 'firebase/auth';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { useEffect, useState } from 'react';
-import { HelpCircle, LogOut, Zap } from 'react-feather';
+import { HelpCircle, LogOut, UserPlus, Zap } from 'react-feather';
 import { doc, getDoc, getFirestore } from 'firebase/firestore';
 import toast from 'react-hot-toast';
 import type { FirebaseError } from 'firebase/app';
 import Link from 'next/link';
-import Login from '../components/login';
 import Tooltip from '../components/tooltip';
+import Modal from '../components/modal';
+import Login from '../components/login';
 
 const Home: NextPage = () => {
   const auth = getAuth();
@@ -17,8 +18,17 @@ const Home: NextPage = () => {
   const [user, setUser] = useState<User | null | undefined>(undefined);
   const [defaultContent, setDefaultContent] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const [showLogin, setShowLogin] = useState(false);
 
-  onAuthStateChanged(auth, setUser);
+  useEffect(() => {
+    onAuthStateChanged(auth, (newUser) => {
+      setUser(newUser);
+
+      if (newUser) {
+        setShowLogin(false);
+      }
+    });
+  }, [auth]);
 
   useEffect(() => {
     const getProfile = async (uid: string) => {
@@ -54,10 +64,6 @@ const Home: NextPage = () => {
     return null;
   }
 
-  if (!user) {
-    return <Login />;
-  }
-
   return (
     <div>
       <Editor defaultContent={defaultContent} />
@@ -82,15 +88,34 @@ const Home: NextPage = () => {
             <HelpCircle size={16} />
           </Link>
         </Tooltip>
-        <Tooltip label="Log out" side="left">
-          <button
-            type="button"
-            className="rounded-full bg-white p-2 shadow-md"
-            onClick={async () => auth.signOut()}
+        {user ? (
+          <Tooltip label="Log out" side="left">
+            <button
+              type="button"
+              className="rounded-full bg-white p-2 shadow-md"
+              onClick={async () => auth.signOut()}
+            >
+              <LogOut size={16} />
+            </button>
+          </Tooltip>
+        ) : (
+          <Modal
+            show={showLogin}
+            title="Login"
+            description="Enter an email and password to login or create a new account."
+            content={<Login />}
           >
-            <LogOut size={16} />
-          </button>
-        </Tooltip>
+            <Tooltip label="Login or signup" side="left">
+              <button
+                type="button"
+                className="block rounded-full bg-white p-2 shadow-md"
+                onClick={() => setShowLogin(true)}
+              >
+                <UserPlus size={16} />
+              </button>
+            </Tooltip>
+          </Modal>
+        )}
       </div>
     </div>
   );

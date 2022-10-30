@@ -12,6 +12,7 @@ import toast from 'react-hot-toast';
 const Login: FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
   const auth = getAuth();
   const firestore = getFirestore();
 
@@ -26,13 +27,17 @@ const Login: FC = () => {
       },
       { merge: true }
     );
+
+    setLoading(false);
   };
 
   const handleSubmit: FormEventHandler = async (event) => {
     event.preventDefault();
+    setLoading(true);
 
     try {
       await signInWithEmailAndPassword(auth, email, password);
+      setLoading(false);
     } catch (error) {
       const castedError = error as FirebaseError;
 
@@ -63,65 +68,53 @@ const Login: FC = () => {
       }
 
       toast.error(castedError.message);
+      setLoading(false);
     }
   };
 
   return (
-    <div className="flex h-screen w-screen items-center justify-center">
-      <div className="mx-auto flex w-full max-w-xs flex-col gap-8">
+    <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+      <fieldset className="flex flex-col gap-2">
         <div className="flex flex-col gap-1">
-          <h1 className="text-base font-semibold text-zinc-900">Login</h1>
-          <p className="text-base text-zinc-500">
-            Enter your email and password to login.
-          </p>
+          <label htmlFor="email" className="text-sm font-medium text-zinc-900">
+            Email
+          </label>
+          <input
+            className="block w-full rounded-md bg-zinc-50 p-3 placeholder:text-zinc-500"
+            type="email"
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
+            placeholder="janesmith@example.com"
+            required
+          />
         </div>
-        <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
-          <fieldset className="flex flex-col gap-2">
-            <div className="flex flex-col gap-1">
-              <label
-                htmlFor="email"
-                className="text-sm font-medium text-zinc-900"
-              >
-                Email
-              </label>
-              <input
-                className="block w-full rounded-md bg-zinc-50 p-3 placeholder:text-zinc-500"
-                type="email"
-                value={email}
-                onChange={(event) => setEmail(event.target.value)}
-                placeholder="janesmith@example.com"
-                required
-              />
-            </div>
-            <div className="flex flex-col gap-1">
-              <label
-                htmlFor="password"
-                className="text-sm font-medium text-zinc-900"
-              >
-                Password
-              </label>
-              <input
-                className="block w-full rounded-md bg-zinc-50 p-3 placeholder:text-zinc-500"
-                type="password"
-                value={password}
-                onChange={(event) => setPassword(event.target.value)}
-                placeholder="••••••••"
-                required
-                data-passwordrules="minlength: 6;"
-                minLength={6}
-              />
-            </div>
-          </fieldset>
-          <button
-            className="block w-full rounded-md bg-zinc-900 p-3 text-white disabled:cursor-not-allowed disabled:opacity-50"
-            type="submit"
-            disabled={!email || !password}
+        <div className="flex flex-col gap-1">
+          <label
+            htmlFor="password"
+            className="text-sm font-medium text-zinc-900"
           >
-            Login
-          </button>
-        </form>
-      </div>
-    </div>
+            Password
+          </label>
+          <input
+            className="block w-full rounded-md bg-zinc-50 p-3 placeholder:text-zinc-500"
+            type="password"
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
+            placeholder="••••••••"
+            required
+            data-passwordrules="minlength: 6;"
+            minLength={6}
+          />
+        </div>
+      </fieldset>
+      <button
+        className="block w-full rounded-md bg-zinc-900 p-3 text-white disabled:cursor-not-allowed disabled:opacity-50"
+        type="submit"
+        disabled={!email || !password || loading}
+      >
+        Login
+      </button>
+    </form>
   );
 };
 
