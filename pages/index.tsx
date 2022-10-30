@@ -3,10 +3,11 @@ import dynamic from 'next/dynamic';
 import type { User } from 'firebase/auth';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { useEffect, useState } from 'react';
-import { LogOut } from 'react-feather';
+import { HelpCircle, LogOut, Zap } from 'react-feather';
 import { doc, getDoc, getFirestore } from 'firebase/firestore';
 import toast from 'react-hot-toast';
 import type { FirebaseError } from 'firebase/app';
+import Link from 'next/link';
 import Login from '../components/login';
 import Tooltip from '../components/tooltip';
 
@@ -60,7 +61,23 @@ const Home: NextPage = () => {
   return (
     <div>
       <Editor defaultContent={defaultContent} />
-      <div className="fixed bottom-4 right-4">
+      <div className="fixed bottom-4 right-4 flex flex-col gap-2">
+        <Tooltip label="Give feedback" side="left">
+          <Link
+            href="https://twitter.com/haydenbleasel"
+            className="block rounded-full bg-white p-2 shadow-md"
+          >
+            <Zap size={16} />
+          </Link>
+        </Tooltip>
+        <Tooltip label="Markdown cheatsheet" side="left">
+          <Link
+            href="https://www.markdownguide.org/cheat-sheet/"
+            className="block rounded-full bg-white p-2 shadow-md"
+          >
+            <HelpCircle size={16} />
+          </Link>
+        </Tooltip>
         <Tooltip label="Log out" side="left">
           <button
             type="button"

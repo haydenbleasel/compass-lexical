@@ -14,7 +14,7 @@ const Tooltip: FC<TooltipProps> = ({ label, side, children }) => (
     <Portal>
       <Content
         side={side}
-        className="rounded-md bg-gray-900 py-1 px-2 text-white"
+        className="rounded-md bg-gray-900 py-1 px-2 text-sm text-white"
       >
         <Arrow />
         {label}
