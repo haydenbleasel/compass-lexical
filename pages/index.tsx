@@ -51,7 +51,7 @@ const Home: NextPage = () => {
     { ssr: false }
   );
 
-  if (typeof user === 'undefined' || loading) {
+  if (typeof user === 'undefined' || (user && loading)) {
     return null;
   }
 
@@ -62,7 +62,7 @@ const Home: NextPage = () => {
   return (
     <div>
       <Editor defaultContent={defaultContent} />
-      <div className="absolute bottom-4 right-4">
+      <div className="fixed bottom-4 right-4">
         <Tooltip label="Log out" side="left">
           <button
             type="button"

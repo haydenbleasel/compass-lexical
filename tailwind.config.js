@@ -9,6 +9,10 @@ module.exports = {
       typography: {
         DEFAULT: {
           css: {
+            p: {
+              marginTop: 0,
+              marginBottom: '0.75rem',
+            },
             li: {
               margin: '0',
               '&[role="checkbox"]': {
