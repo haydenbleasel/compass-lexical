@@ -74,6 +74,7 @@ const Home: NextPage = () => {
             className="block rounded-full bg-white p-2 shadow-md"
             target="_blank"
             rel="noopener noreferrer"
+            aria-label="Source code"
           >
             <Code size={16} />
           </Link>
@@ -84,6 +85,7 @@ const Home: NextPage = () => {
             className="block rounded-full bg-white p-2 shadow-md"
             target="_blank"
             rel="noopener noreferrer"
+            aria-label="Give feedback"
           >
             <Zap size={16} />
           </Link>
@@ -94,6 +96,7 @@ const Home: NextPage = () => {
             className="block rounded-full bg-white p-2 shadow-md"
             target="_blank"
             rel="noopener noreferrer"
+            aria-label="Markdown cheatsheet"
           >
             <HelpCircle size={16} />
           </Link>
@@ -102,6 +105,7 @@ const Home: NextPage = () => {
           <Tooltip label="Log out" side="left">
             <button
               type="button"
+              aria-label="Log out"
               className="rounded-full bg-white p-2 shadow-md"
               onClick={async () => auth.signOut()}
             >
@@ -118,6 +122,7 @@ const Home: NextPage = () => {
             <Tooltip label="Login or signup" side="left">
               <button
                 type="button"
+                aria-label="Login or signup"
                 className="block rounded-full bg-white p-2 shadow-md"
                 onClick={() => setShowLogin(true)}
               >
