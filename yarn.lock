@@ -1056,7 +1056,7 @@
   resolved "https://registry.yarnpkg.com/@lexical/dragon/-/dragon-0.5.0.tgz#54ec8812e3fb907af5913c5d0436b8d28fa4efe8"
   integrity sha512-Gf0jN8hjlF8E71wAsvbRpR1u9oS6RUjUw3VWp/Qa+IrtjBFFVzdTUloUs3cjMX9E/MFRJgt3wPsaKx2IuLBWQw==
 
-"@lexical/hashtag@0.5.0":
+"@lexical/hashtag@0.5.0", "@lexical/hashtag@^0.5.0":
   version "0.5.0"
   resolved "https://registry.yarnpkg.com/@lexical/hashtag/-/hashtag-0.5.0.tgz#dfe39ea73d1c4658c724419ef1113e27fb75a7f3"
   integrity sha512-3MT72y72BmK4q7Rtb9gP3n83UL4vWC078T9io4zyPxKEI1Mh3UAVuRwh6Ypn0FeH94XvmuZAGVdoOC/nTd1now==
