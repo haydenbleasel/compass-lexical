@@ -31,6 +31,11 @@ const App: FC<AppProps> = ({ Component, pageProps }) => (
           },
         ],
       }}
+      twitter={{
+        handle: '@haydenbleasel',
+        site: '@haydenbleasel',
+        cardType: 'summary_large_image',
+      }}
     />
     <Head>
       <link
