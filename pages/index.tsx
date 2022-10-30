@@ -71,34 +71,34 @@ const Home: NextPage = () => {
         <Tooltip label="Source code" side="left">
           <Link
             href="https://github.com/haydenbleasel/compass"
-            className="block rounded-full bg-white p-2 shadow-md"
+            className="block rounded-full border border-zinc-200 bg-white p-2"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Source code"
           >
-            <Code size={16} />
+            <Code size={16} className="text-zinc-900" />
           </Link>
         </Tooltip>
         <Tooltip label="Give feedback" side="left">
           <Link
             href="https://twitter.com/haydenbleasel"
-            className="block rounded-full bg-white p-2 shadow-md"
+            className="block rounded-full border border-zinc-200 bg-white p-2"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Give feedback"
           >
-            <Zap size={16} />
+            <Zap size={16} className="text-zinc-900" />
           </Link>
         </Tooltip>
         <Tooltip label="Markdown cheatsheet" side="left">
           <Link
             href="https://www.markdownguide.org/cheat-sheet/"
-            className="block rounded-full bg-white p-2 shadow-md"
+            className="block rounded-full border border-zinc-200 bg-white p-2"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Markdown cheatsheet"
           >
-            <HelpCircle size={16} />
+            <HelpCircle size={16} className="text-zinc-900" />
           </Link>
         </Tooltip>
         {user ? (
@@ -106,10 +106,10 @@ const Home: NextPage = () => {
             <button
               type="button"
               aria-label="Log out"
-              className="rounded-full bg-white p-2 shadow-md"
+              className="rounded-full border border-zinc-200 bg-white p-2"
               onClick={async () => auth.signOut()}
             >
-              <LogOut size={16} />
+              <LogOut size={16} className="text-zinc-900" />
             </button>
           </Tooltip>
         ) : (
@@ -123,10 +123,10 @@ const Home: NextPage = () => {
               <button
                 type="button"
                 aria-label="Login or signup"
-                className="block rounded-full bg-white p-2 shadow-md"
+                className="block rounded-full border border-zinc-200 bg-white p-2"
                 onClick={() => setShowLogin(true)}
               >
-                <UserPlus size={16} />
+                <UserPlus size={16} className="text-zinc-900" />
               </button>
             </Tooltip>
           </Modal>
