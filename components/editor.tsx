@@ -26,10 +26,6 @@ import transformers from '../lib/transformers';
 import sample from '../lib/sample';
 import matchers from '../lib/autolink';
 
-/*
- * When the editor changes, you can get notified via the
- * LexicalOnChangePlugin!
- */
 const onChange = (editorState: EditorState) => {
   editorState.read(() => {
     const content = JSON.stringify(editorState);

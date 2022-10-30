@@ -3,7 +3,7 @@ import dynamic from 'next/dynamic';
 import type { User } from 'firebase/auth';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { useEffect, useState } from 'react';
-import { HelpCircle, LogOut, UserPlus, Zap } from 'react-feather';
+import { Code, HelpCircle, LogOut, UserPlus, Zap } from 'react-feather';
 import { doc, getDoc, getFirestore } from 'firebase/firestore';
 import toast from 'react-hot-toast';
 import type { FirebaseError } from 'firebase/app';
@@ -68,6 +68,16 @@ const Home: NextPage = () => {
     <div>
       <Editor defaultContent={defaultContent} />
       <div className="fixed bottom-4 right-4 flex flex-col gap-2">
+        <Tooltip label="Source code" side="left">
+          <Link
+            href="https://github.com/haydenbleasel/compass"
+            className="block rounded-full bg-white p-2 shadow-md"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Code size={16} />
+          </Link>
+        </Tooltip>
         <Tooltip label="Give feedback" side="left">
           <Link
             href="https://twitter.com/haydenbleasel"
