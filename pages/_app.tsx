@@ -30,11 +30,14 @@ const App: FC<AppProps> = ({ Component, pageProps }) => {
         openGraph={{
           type: 'website',
           locale: 'en_US',
-          url: 'https://compass.haydenbleasel.com/',
+          url: process.env.NEXT_PUBLIC_SITE_URL,
           site_name: 'Compass',
           images: [
             {
-              url: `https://compass.haydenbleasel.com/api/og?title=${title}&description=${description}`,
+              url: new URL(
+                `/api/og?title=${title}&description=${description}`,
+                process.env.NEXT_PUBLIC_SITE_URL ?? ''
+              ).href,
               width: 1200,
               height: 630,
               alt: 'Compass',
