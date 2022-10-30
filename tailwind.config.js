@@ -34,6 +34,10 @@ module.exports = {
             },
             li: {
               margin: '0',
+              listStyle: 'none',
+              '&[dir="ltr"]': {
+                listStyle: 'inherit',
+              },
               '&[role="checkbox"]': {
                 listStyle: 'none',
                 outline: 'none',
