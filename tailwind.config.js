@@ -21,6 +21,7 @@ module.exports = {
                 alignItems: 'center',
                 gap: '0.5rem',
                 outline: 'none',
+                marginLeft: '-1.625em',
                 '&::before': {
                   content: "''",
                   width: '16px',
