@@ -5,10 +5,18 @@ module.exports = {
     './components/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
+    fontFamily: {
+      sans: ['Inter', 'sans-serif'],
+      serif: ['Newsreader', 'serif'],
+    },
     extend: {
-      typography: {
+      typography: (theme) => ({
         DEFAULT: {
           css: {
+            em: {
+              fontFamily: theme('fontFamily.serif').join(', '),
+              fontSize: 'calc(1em + 1px)',
+            },
             p: {
               marginTop: 0,
               marginBottom: '0.75rem',
@@ -39,7 +47,7 @@ module.exports = {
             },
           },
         },
-      },
+      }),
     },
   },
   plugins: [require('@tailwindcss/typography')],
