@@ -1,7 +1,6 @@
 import { $createParagraphNode, $createTextNode, $getRoot } from 'lexical';
 import { $createHeadingNode } from '@lexical/rich-text';
 import { $createListItemNode, $createListNode } from '@lexical/list';
-import { $createLinkNode } from '@lexical/link';
 
 const sample = (): void => {
   const root = $getRoot();

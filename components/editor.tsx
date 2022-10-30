@@ -24,24 +24,7 @@ import type { FirebaseError } from 'firebase/app';
 import nodes from '../lib/nodes';
 import transformers from '../lib/transformers';
 import sample from '../lib/sample';
-
-const urlMatcher =
-  // eslint-disable-next-line prefer-named-capture-group
-  /((https?:\/\/(www\.)?)|(www\.))[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/u;
-
-const MATCHERS = [
-  (text: string) => {
-    const match = urlMatcher.exec(text);
-    return (
-      match && {
-        index: match.index,
-        length: match[0].length,
-        text: match[0],
-        url: match[0],
-      }
-    );
-  },
-];
+import matchers from '../lib/autolink';
 
 /*
  * When the editor changes, you can get notified via the
@@ -131,7 +114,7 @@ const Editor: FC<EditorProps> = ({ defaultContent }) => {
         <ListPlugin />
         <CheckListPlugin />
         <TablePlugin />
-        <AutoLinkPlugin matchers={MATCHERS} />
+        <AutoLinkPlugin matchers={matchers} />
         <AutoScrollPlugin scrollRef={containerWithScrollRef} />
         <MarkdownShortcutPlugin transformers={transformers} />
         <HashtagPlugin />
