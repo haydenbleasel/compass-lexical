@@ -29,6 +29,9 @@ import {
   TEXT_FORMAT_TRANSFORMERS,
   TEXT_MATCH_TRANSFORMERS,
 } from '@lexical/markdown';
+import { getAuth } from 'firebase/auth';
+import { doc, getFirestore, updateDoc } from 'firebase/firestore';
+import type { FirebaseError } from 'firebase/app';
 
 const theme: EditorThemeClasses = {
   // Theme styling goes here
@@ -60,8 +63,21 @@ const MATCHERS = [
 const onChange = (editorState: EditorState) => {
   editorState.read(() => {
     const content = JSON.stringify(editorState);
+    const { currentUser } = getAuth();
+    const firestore = getFirestore();
 
-    console.log(content, 'content');
+    if (!currentUser) {
+      return;
+    }
+
+    const profile = doc(firestore, 'users', currentUser.uid);
+
+    updateDoc(profile, {
+      content,
+      lastUpdated: new Date(),
+    }).catch((error) => {
+      toast.error((error as FirebaseError).message);
+    });
   });
 };
 
@@ -91,12 +107,17 @@ const onError = (error: Error) => {
   toast.error(error.message);
 };
 
-const Editor: FC = () => {
+type EditorProps = {
+  defaultContent?: string;
+};
+
+const Editor: FC<EditorProps> = ({ defaultContent }) => {
   const containerWithScrollRef = useRef<HTMLDivElement>(null);
   const initialConfig: ComponentProps<typeof LexicalComposer>['initialConfig'] =
     {
       namespace: 'Compass',
       theme,
+      editorState: defaultContent,
       onError,
       nodes: [
         HeadingNode,

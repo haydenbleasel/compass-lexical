@@ -2,16 +2,45 @@ import type { NextPage } from 'next';
 import dynamic from 'next/dynamic';
 import type { User } from 'firebase/auth';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { LogOut } from 'react-feather';
+import { doc, getDoc, getFirestore } from 'firebase/firestore';
+import toast from 'react-hot-toast';
+import type { FirebaseError } from 'firebase/app';
 import Login from '../components/login';
 import Tooltip from '../components/tooltip';
 
 const Home: NextPage = () => {
   const auth = getAuth();
+  const firestore = getFirestore();
   const [user, setUser] = useState<User | null | undefined>(undefined);
+  const [defaultContent, setDefaultContent] = useState<string | undefined>(
+    undefined
+  );
+  const [loading, setLoading] = useState(true);
 
   onAuthStateChanged(auth, setUser);
+
+  useEffect(() => {
+    const getProfile = async (uid: string) => {
+      const profileRef = doc(firestore, 'users', uid);
+      const profile = await getDoc(profileRef);
+
+      if (profile.exists()) {
+        const { content } = profile.data() as { content: string };
+
+        setDefaultContent(content);
+      }
+
+      setLoading(false);
+    };
+
+    if (user && !defaultContent && loading) {
+      getProfile(user.uid).catch((error) => {
+        toast.error((error as FirebaseError).message);
+      });
+    }
+  }, [defaultContent, firestore, user, loading]);
 
   const Editor = dynamic(
     async () =>
@@ -22,7 +51,7 @@ const Home: NextPage = () => {
     { ssr: false }
   );
 
-  if (typeof user === 'undefined') {
+  if (typeof user === 'undefined' || loading) {
     return null;
   }
 
@@ -32,7 +61,7 @@ const Home: NextPage = () => {
 
   return (
     <div>
-      <Editor />
+      <Editor defaultContent={defaultContent} />
       <div className="absolute bottom-4 right-4">
         <Tooltip label="Log out" side="left">
           <button

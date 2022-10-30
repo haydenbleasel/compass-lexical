@@ -19,10 +19,14 @@ const Login: FC = () => {
     const newUser = await createUserWithEmailAndPassword(auth, email, password);
     const newDoc = doc(firestore, 'users', newUser.user.uid);
 
-    await setDoc(newDoc, {
-      content: '',
-      lastUpdated: new Date(),
-    });
+    await setDoc(
+      newDoc,
+      {
+        content: '',
+        lastUpdated: new Date(),
+      },
+      { merge: true }
+    );
   };
 
   const handleSubmit: FormEventHandler = async (event) => {
