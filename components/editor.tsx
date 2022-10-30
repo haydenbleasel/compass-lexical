@@ -1,5 +1,4 @@
 import type { EditorState, EditorThemeClasses } from 'lexical';
-import { $getRoot, $getSelection } from 'lexical';
 import type { ComponentProps, FC } from 'react';
 import { useRef, useEffect } from 'react';
 
