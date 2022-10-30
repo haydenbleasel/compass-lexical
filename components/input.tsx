@@ -17,7 +17,7 @@ const Input: FC<InputProps> = ({ label, onChange, ...props }) => {
         </label>
       )}
       <input
-        className="block w-full rounded-md bg-zinc-50 p-3 outline-zinc-500 placeholder:text-zinc-900"
+        className="block w-full rounded-md bg-zinc-50 p-3 outline-zinc-500 transition-colors placeholder:text-zinc-900 focus:bg-zinc-100"
         id={id}
         onChange={(event) => onChange(event.target.value)}
         {...props}

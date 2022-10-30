@@ -35,11 +35,6 @@ import { getAuth } from 'firebase/auth';
 import { doc, getFirestore, updateDoc } from 'firebase/firestore';
 import type { FirebaseError } from 'firebase/app';
 
-const theme: EditorThemeClasses = {
-  // Theme styling goes here
-  root: 'bg-white',
-};
-
 const urlMatcher =
   // eslint-disable-next-line prefer-named-capture-group
   /((https?:\/\/(www\.)?)|(www\.))[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/u;
@@ -132,13 +127,18 @@ const placeholderText = () => {
   }
 };
 
+const Placeholder = (
+  <p className="pointer-events-none absolute inset-y-16 inset-x-4 m-0 select-none text-base text-zinc-500">
+    Start typing...
+  </p>
+);
+
 const Editor: FC<EditorProps> = ({ defaultContent }) => {
   const containerWithScrollRef = useRef<HTMLDivElement>(null);
   const editorState = defaultContent?.trim() ? defaultContent : placeholderText;
   const initialConfig: ComponentProps<typeof LexicalComposer>['initialConfig'] =
     {
       namespace: 'Compass',
-      theme,
       editorState,
       onError,
       nodes: [
@@ -166,11 +166,7 @@ const Editor: FC<EditorProps> = ({ defaultContent }) => {
       <LexicalComposer initialConfig={initialConfig}>
         <RichTextPlugin
           contentEditable={<ContentEditable className="outline-none" />}
-          placeholder={
-            <p className="pointer-events-none absolute inset-y-16 inset-x-4 m-0 select-none text-base text-zinc-500">
-              Start typing...
-            </p>
-          }
+          placeholder={Placeholder}
         />
         <OnChangePlugin onChange={onChange} />
         <HistoryPlugin />
