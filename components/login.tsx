@@ -96,7 +96,7 @@ const Login: FC = () => {
         />
       </fieldset>
       <button
-        className="block w-full rounded-md bg-zinc-900 p-3 text-white disabled:cursor-not-allowed disabled:opacity-50"
+        className="block w-full rounded-md bg-zinc-900 p-3 font-semibold text-white disabled:cursor-not-allowed disabled:opacity-50"
         type="submit"
         disabled={!email || !password || loading}
       >

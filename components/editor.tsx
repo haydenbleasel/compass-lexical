@@ -1,4 +1,4 @@
-import type { EditorState, EditorThemeClasses } from 'lexical';
+import type { EditorState } from 'lexical';
 import { $createParagraphNode, $createTextNode, $getRoot } from 'lexical';
 import type { ComponentProps, FC } from 'react';
 import { useRef, useEffect } from 'react';
@@ -18,22 +18,12 @@ import { MarkdownShortcutPlugin } from '@lexical/react/LexicalMarkdownShortcutPl
 import { HashtagPlugin } from '@lexical/react/LexicalHashtagPlugin';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import toast from 'react-hot-toast';
-import { LinkNode, AutoLinkNode } from '@lexical/link';
-import { ListNode, ListItemNode } from '@lexical/list';
-import { TableNode, TableCellNode, TableRowNode } from '@lexical/table';
-import { $createHeadingNode, HeadingNode, QuoteNode } from '@lexical/rich-text';
-import { CodeHighlightNode, CodeNode } from '@lexical/code';
-import { HorizontalRuleNode } from '@lexical/react/LexicalHorizontalRuleNode';
-import { HashtagNode } from '@lexical/hashtag';
-import {
-  CHECK_LIST,
-  ELEMENT_TRANSFORMERS,
-  TEXT_FORMAT_TRANSFORMERS,
-  TEXT_MATCH_TRANSFORMERS,
-} from '@lexical/markdown';
+import { $createHeadingNode } from '@lexical/rich-text';
 import { getAuth } from 'firebase/auth';
 import { doc, getFirestore, updateDoc } from 'firebase/firestore';
 import type { FirebaseError } from 'firebase/app';
+import nodes from '../lib/nodes';
+import transformers from '../lib/transformers';
 
 const urlMatcher =
   // eslint-disable-next-line prefer-named-capture-group
@@ -141,21 +131,7 @@ const Editor: FC<EditorProps> = ({ defaultContent }) => {
       namespace: 'Compass',
       editorState,
       onError,
-      nodes: [
-        HeadingNode,
-        QuoteNode,
-        LinkNode,
-        ListNode,
-        ListItemNode,
-        TableNode,
-        TableCellNode,
-        TableRowNode,
-        AutoLinkNode,
-        HorizontalRuleNode,
-        CodeHighlightNode,
-        CodeNode,
-        HashtagNode,
-      ],
+      nodes,
     };
 
   return (
@@ -176,14 +152,7 @@ const Editor: FC<EditorProps> = ({ defaultContent }) => {
         <TablePlugin />
         <AutoLinkPlugin matchers={MATCHERS} />
         <AutoScrollPlugin scrollRef={containerWithScrollRef} />
-        <MarkdownShortcutPlugin
-          transformers={[
-            CHECK_LIST,
-            ...ELEMENT_TRANSFORMERS,
-            ...TEXT_FORMAT_TRANSFORMERS,
-            ...TEXT_MATCH_TRANSFORMERS,
-          ]}
-        />
+        <MarkdownShortcutPlugin transformers={transformers} />
         <HashtagPlugin />
         <MyCustomAutoFocusPlugin />
       </LexicalComposer>
