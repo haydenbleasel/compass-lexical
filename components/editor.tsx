@@ -1,8 +1,9 @@
 import type { EditorState } from 'lexical';
 
 import type { ComponentProps, FC, MouseEventHandler } from 'react';
-import { useRef } from 'react';
-import { useEventListener } from '@react-hookz/web';
+import { useEffect, useState, useRef } from 'react';
+import { useDebouncedState, useEventListener } from '@react-hookz/web';
+import isEqual from 'react-fast-compare';
 
 import { LexicalComposer } from '@lexical/react/LexicalComposer';
 import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin';
@@ -27,27 +28,6 @@ import transformers from '../lib/transformers';
 import sample from '../lib/sample';
 import matchers from '../lib/autolink';
 
-const onChange = (editorState: EditorState) => {
-  editorState.read(() => {
-    const content = JSON.stringify(editorState);
-    const { currentUser } = getAuth();
-    const firestore = getFirestore();
-
-    if (!currentUser) {
-      return;
-    }
-
-    const profile = doc(firestore, 'users', currentUser.uid);
-
-    updateDoc(profile, {
-      content,
-      lastUpdated: new Date(),
-    }).catch((error) => {
-      toast.error((error as FirebaseError).message);
-    });
-  });
-};
-
 const onError = (error: Error) => {
   toast.error(error.message);
 };
@@ -63,12 +43,20 @@ const Placeholder = (
 );
 
 const Editor: FC<EditorProps> = ({ defaultContent }) => {
+  const [lastEditorState, setLastEditorState] = useState<EditorState | null>(
+    null
+  );
+  const [editorState, setEditorState] = useDebouncedState<EditorState | null>(
+    null,
+    500,
+    1000
+  );
   const containerWithScrollRef = useRef<HTMLDivElement>(null);
-  const editorState = defaultContent?.trim() ? defaultContent : sample;
+  const defaultEditorState = defaultContent?.trim() ? defaultContent : sample;
   const initialConfig: ComponentProps<typeof LexicalComposer>['initialConfig'] =
     {
       namespace: 'Compass',
-      editorState,
+      editorState: defaultEditorState,
       onError,
       nodes,
     };
@@ -93,7 +81,29 @@ const Editor: FC<EditorProps> = ({ defaultContent }) => {
     window.open(href, '_blank');
   };
 
+  const saveContent = () => {
+    const content = JSON.stringify(editorState);
+    const { currentUser } = getAuth();
+    const firestore = getFirestore();
+
+    if (!currentUser || !content || isEqual(lastEditorState, editorState)) {
+      return;
+    }
+
+    const profile = doc(firestore, 'users', currentUser.uid);
+
+    updateDoc(profile, {
+      content,
+      lastUpdated: new Date(),
+    }).catch((error) => {
+      toast.error((error as FirebaseError).message);
+    });
+
+    setLastEditorState(editorState);
+  };
+
   useEventListener(window, 'click', clickEventHandler, { passive: true });
+  useEffect(saveContent, [editorState, lastEditorState]);
 
   return (
     <div
@@ -105,7 +115,7 @@ const Editor: FC<EditorProps> = ({ defaultContent }) => {
           contentEditable={<ContentEditable className="outline-none" />}
           placeholder={Placeholder}
         />
-        <OnChangePlugin onChange={onChange} />
+        <OnChangePlugin onChange={setEditorState} />
         <HistoryPlugin />
         <LinkPlugin />
         <ListPlugin />

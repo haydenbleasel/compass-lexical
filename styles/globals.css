@@ -8,3 +8,8 @@ html {
   text-rendering: optimizelegibility;
   touch-action: manipulation;
 }
+
+.firebase-emulator-warning {
+  top: 0;
+  bottom: auto !important;
+}
