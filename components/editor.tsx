@@ -1,5 +1,5 @@
 import type { EditorState } from 'lexical';
-import { $createParagraphNode, $createTextNode, $getRoot } from 'lexical';
+
 import type { ComponentProps, FC } from 'react';
 import { useRef, useEffect } from 'react';
 
@@ -18,12 +18,12 @@ import { MarkdownShortcutPlugin } from '@lexical/react/LexicalMarkdownShortcutPl
 import { HashtagPlugin } from '@lexical/react/LexicalHashtagPlugin';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import toast from 'react-hot-toast';
-import { $createHeadingNode } from '@lexical/rich-text';
 import { getAuth } from 'firebase/auth';
 import { doc, getFirestore, updateDoc } from 'firebase/firestore';
 import type { FirebaseError } from 'firebase/app';
 import nodes from '../lib/nodes';
 import transformers from '../lib/transformers';
+import sample from '../lib/sample';
 
 const urlMatcher =
   // eslint-disable-next-line prefer-named-capture-group
@@ -98,25 +98,6 @@ type EditorProps = {
   defaultContent: string | null;
 };
 
-const placeholderText = () => {
-  const root = $getRoot();
-  if (root.getFirstChild() === null) {
-    const heading = $createHeadingNode('h1');
-    heading.append($createTextNode('Welcome to Compass'));
-    root.append(heading);
-    const paragraph = $createParagraphNode();
-    paragraph.append(
-      $createTextNode('Compass is a super simple '),
-      $createTextNode('notes').toggleFormat('bold'),
-      $createTextNode(' editor with Markdown support.')
-    );
-    root.append(paragraph);
-    const paragraph2 = $createParagraphNode();
-    paragraph2.append($createTextNode('Give it a try!'));
-    root.append(paragraph2);
-  }
-};
-
 const Placeholder = (
   <p className="pointer-events-none absolute inset-y-16 inset-x-4 m-0 select-none text-base text-zinc-500">
     Start typing...
@@ -125,7 +106,7 @@ const Placeholder = (
 
 const Editor: FC<EditorProps> = ({ defaultContent }) => {
   const containerWithScrollRef = useRef<HTMLDivElement>(null);
-  const editorState = defaultContent?.trim() ? defaultContent : placeholderText;
+  const editorState = defaultContent?.trim() ? defaultContent : sample;
   const initialConfig: ComponentProps<typeof LexicalComposer>['initialConfig'] =
     {
       namespace: 'Compass',
