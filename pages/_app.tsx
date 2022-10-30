@@ -5,17 +5,32 @@ import { Toaster } from 'react-hot-toast';
 import { Provider as TooltipProvider } from '@radix-ui/react-tooltip';
 import { Analytics } from '@vercel/analytics/react';
 import '../lib/firebase';
-import Head from 'next/head';
+import { DefaultSeo } from 'next-seo';
+
+const title = 'Compass — a simple, ephemeral notes app';
+const description =
+  'Compass is a simple app that lets you write Markdown-enabled notes.';
 
 const App: FC<AppProps> = ({ Component, pageProps }) => (
   <>
-    <Head>
-      <title>Compass — a simple, ephemeral notes app</title>
-      <meta
-        name="description"
-        content="Compass is a simple app that lets you write Markdown-enabled notes."
-      />
-    </Head>
+    <DefaultSeo
+      title={title}
+      description={description}
+      openGraph={{
+        type: 'website',
+        locale: 'en_US',
+        url: 'https://compass.haydenbleasel.com/',
+        site_name: 'Compass',
+        images: [
+          {
+            url: `https://compass.haydenbleasel.com/api/og?title=${title}&description=${description}`,
+            width: 1200,
+            height: 630,
+            alt: 'Compass',
+          },
+        ],
+      }}
+    />
     <TooltipProvider delayDuration={0}>
       <Component {...pageProps} />
       <Toaster position="bottom-right" />
