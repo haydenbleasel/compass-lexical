@@ -1,10 +1,11 @@
 {
   "name": "compass",
+  "description": "A simple, ephemeral notes app.",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "concurrently \"yarn:next\" \"yarn:emulators\"",
-    "next": "next dev",
+    "next": "yarn install && next dev",
     "emulators": "firebase emulators:start",
     "build": "next build",
     "start": "next start",
