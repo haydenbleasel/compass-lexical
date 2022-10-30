@@ -29,6 +29,9 @@ module.exports = {
                 marginBottom: 0,
               },
             },
+            a: {
+              cursor: 'pointer',
+            },
             li: {
               margin: '0',
               '&[role="checkbox"]': {

@@ -1,7 +1,8 @@
 import type { EditorState } from 'lexical';
 
-import type { ComponentProps, FC } from 'react';
+import type { ComponentProps, FC, MouseEventHandler } from 'react';
 import { useRef } from 'react';
+import { useEventListener } from '@react-hookz/web';
 
 import { LexicalComposer } from '@lexical/react/LexicalComposer';
 import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin';
@@ -71,6 +72,28 @@ const Editor: FC<EditorProps> = ({ defaultContent }) => {
       onError,
       nodes,
     };
+
+  const clickEventHandler: MouseEventHandler = (event) => {
+    const parent = (event.target as HTMLElement).parentNode;
+
+    if (!parent) {
+      return;
+    }
+
+    const href =
+      parent.nodeName === 'A'
+        ? (parent as HTMLAnchorElement).getAttribute('href')
+        : null;
+
+    if (!href) {
+      return;
+    }
+
+    event.preventDefault();
+    window.open(href, '_blank');
+  };
+
+  useEventListener(window, 'click', clickEventHandler, { passive: true });
 
   return (
     <div
