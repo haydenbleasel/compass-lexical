@@ -66,6 +66,8 @@ const Home: NextPage = () => {
           <Link
             href="https://twitter.com/haydenbleasel"
             className="block rounded-full bg-white p-2 shadow-md"
+            target="_blank"
+            rel="noopener noreferrer"
           >
             <Zap size={16} />
           </Link>
@@ -74,6 +76,8 @@ const Home: NextPage = () => {
           <Link
             href="https://www.markdownguide.org/cheat-sheet/"
             className="block rounded-full bg-white p-2 shadow-md"
+            target="_blank"
+            rel="noopener noreferrer"
           >
             <HelpCircle size={16} />
           </Link>
