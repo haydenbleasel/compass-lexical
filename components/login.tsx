@@ -8,6 +8,7 @@ import { doc, getFirestore, setDoc } from 'firebase/firestore';
 import type { FC, FormEventHandler } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
+import Input from './input';
 
 const Login: FC = () => {
   const [email, setEmail] = useState('');
@@ -75,37 +76,24 @@ const Login: FC = () => {
   return (
     <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
       <fieldset className="flex flex-col gap-2">
-        <div className="flex flex-col gap-1">
-          <label htmlFor="email" className="text-sm font-medium text-zinc-900">
-            Email
-          </label>
-          <input
-            className="block w-full rounded-md bg-zinc-50 p-3 placeholder:text-zinc-500"
-            type="email"
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
-            placeholder="janesmith@example.com"
-            required
-          />
-        </div>
-        <div className="flex flex-col gap-1">
-          <label
-            htmlFor="password"
-            className="text-sm font-medium text-zinc-900"
-          >
-            Password
-          </label>
-          <input
-            className="block w-full rounded-md bg-zinc-50 p-3 placeholder:text-zinc-500"
-            type="password"
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-            placeholder="••••••••"
-            required
-            data-passwordrules="minlength: 6;"
-            minLength={6}
-          />
-        </div>
+        <Input
+          label="Email"
+          type="email"
+          value={email}
+          onChange={setEmail}
+          placeholder="janesmith@example.com"
+          required
+        />
+        <Input
+          label="Password"
+          type="password"
+          value={password}
+          onChange={setPassword}
+          placeholder="••••••••"
+          required
+          data-passwordrules="minlength: 6;"
+          minLength={6}
+        />
       </fieldset>
       <button
         className="block w-full rounded-md bg-zinc-900 p-3 text-white disabled:cursor-not-allowed disabled:opacity-50"
