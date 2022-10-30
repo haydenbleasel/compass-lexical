@@ -112,11 +112,12 @@ type EditorProps = {
 
 const Editor: FC<EditorProps> = ({ defaultContent }) => {
   const containerWithScrollRef = useRef<HTMLDivElement>(null);
+  const editorState = defaultContent?.trim() ? defaultContent : undefined;
   const initialConfig: ComponentProps<typeof LexicalComposer>['initialConfig'] =
     {
       namespace: 'Compass',
       theme,
-      editorState: defaultContent,
+      editorState,
       onError,
       nodes: [
         HeadingNode,
@@ -143,7 +144,7 @@ const Editor: FC<EditorProps> = ({ defaultContent }) => {
         <RichTextPlugin
           contentEditable={<ContentEditable className="outline-none" />}
           placeholder={
-            <p className="pointer-events-none absolute inset-4 m-0 select-none text-base text-gray-500">
+            <p className="pointer-events-none absolute inset-y-16 inset-x-4 m-0 select-none text-base text-gray-500">
               Start typing...
             </p>
           }
