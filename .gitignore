@@ -36,5 +36,4 @@ yarn-error.log*
 next-env.d.ts
 *.log
 public/sitemap*
-public/*.json
 public/*.txt
