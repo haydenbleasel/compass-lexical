@@ -44,7 +44,7 @@ const Login: FC = () => {
               <span className="mt-2 inline-block">
                 <button
                   type="button"
-                  className="block w-full rounded-md bg-gray-900 p-3 text-white"
+                  className="block w-full rounded-md bg-zinc-900 p-3 text-white"
                   onClick={async () => {
                     await createAccount();
                     toast.dismiss(customToast.id);
@@ -70,8 +70,8 @@ const Login: FC = () => {
     <div className="flex h-screen w-screen items-center justify-center">
       <div className="mx-auto flex w-full max-w-xs flex-col gap-8">
         <div className="flex flex-col gap-1">
-          <h1 className="text-base font-semibold text-gray-900">Login</h1>
-          <p className="text-base text-gray-500">
+          <h1 className="text-base font-semibold text-zinc-900">Login</h1>
+          <p className="text-base text-zinc-500">
             Enter your email and password to login.
           </p>
         </div>
@@ -80,12 +80,12 @@ const Login: FC = () => {
             <div className="flex flex-col gap-1">
               <label
                 htmlFor="email"
-                className="text-sm font-medium text-gray-900"
+                className="text-sm font-medium text-zinc-900"
               >
                 Email
               </label>
               <input
-                className="block w-full rounded-md bg-gray-50 p-3 placeholder:text-gray-500"
+                className="block w-full rounded-md bg-zinc-50 p-3 placeholder:text-zinc-500"
                 type="email"
                 value={email}
                 onChange={(event) => setEmail(event.target.value)}
@@ -96,12 +96,12 @@ const Login: FC = () => {
             <div className="flex flex-col gap-1">
               <label
                 htmlFor="password"
-                className="text-sm font-medium text-gray-900"
+                className="text-sm font-medium text-zinc-900"
               >
                 Password
               </label>
               <input
-                className="block w-full rounded-md bg-gray-50 p-3 placeholder:text-gray-500"
+                className="block w-full rounded-md bg-zinc-50 p-3 placeholder:text-zinc-500"
                 type="password"
                 value={password}
                 onChange={(event) => setPassword(event.target.value)}
@@ -113,7 +113,7 @@ const Login: FC = () => {
             </div>
           </fieldset>
           <button
-            className="block w-full rounded-md bg-gray-900 p-3 text-white disabled:cursor-not-allowed disabled:opacity-50"
+            className="block w-full rounded-md bg-zinc-900 p-3 text-white disabled:cursor-not-allowed disabled:opacity-50"
             type="submit"
             disabled={!email || !password}
           >

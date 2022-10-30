@@ -13,7 +13,7 @@ const Document: FC = () => (
         rel="stylesheet"
       />
     </Head>
-    <body className="font-text overflow-x-hidden bg-neutral-100 font-normal antialiased dark:bg-neutral-900">
+    <body className="font-text overflow-x-hidden bg-zinc-100 font-normal antialiased dark:bg-zinc-900">
       <Main />
       <NextScript />
     </body>

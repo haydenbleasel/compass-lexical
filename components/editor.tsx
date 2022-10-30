@@ -161,13 +161,13 @@ const Editor: FC<EditorProps> = ({ defaultContent }) => {
   return (
     <div
       ref={containerWithScrollRef}
-      className="prose relative mx-auto px-4 py-16"
+      className="prose prose-zinc relative mx-auto px-4 py-16"
     >
       <LexicalComposer initialConfig={initialConfig}>
         <RichTextPlugin
           contentEditable={<ContentEditable className="outline-none" />}
           placeholder={
-            <p className="pointer-events-none absolute inset-y-16 inset-x-4 m-0 select-none text-base text-gray-500">
+            <p className="pointer-events-none absolute inset-y-16 inset-x-4 m-0 select-none text-base text-zinc-500">
               Start typing...
             </p>
           }
