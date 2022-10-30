@@ -4,6 +4,7 @@ import '../styles/globals.css';
 import type { AppProps } from 'next/app';
 import type { FC } from 'react';
 import { Toaster } from 'react-hot-toast';
+import { Provider as TooltipProvider } from '@radix-ui/react-tooltip';
 
 const App: FC<AppProps> = ({ Component, pageProps }) => {
   const firebaseConfig = {
@@ -25,10 +26,10 @@ const App: FC<AppProps> = ({ Component, pageProps }) => {
   // const analytics = getAnalytics(app);
 
   return (
-    <>
+    <TooltipProvider delayDuration={0}>
       <Component {...pageProps} />
       <Toaster position="bottom-right" />
-    </>
+    </TooltipProvider>
   );
 };
 
