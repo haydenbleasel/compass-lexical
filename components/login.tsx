@@ -50,7 +50,7 @@ const Login: FC = () => {
               <span className="mt-2 inline-block">
                 <button
                   type="button"
-                  className="block w-full rounded-md bg-zinc-900 p-3 text-white"
+                  className="block w-full rounded-md bg-zinc-900 p-3 text-white dark:bg-white dark:text-zinc-900"
                   onClick={async () => {
                     await createAccount();
                     toast.dismiss(customToast.id);
