@@ -62,7 +62,9 @@ module.exports = {
                 },
                 '&[aria-checked="true"]::before': {
                   borderColor: 'transparent',
-                  background: `#000000 url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path fill="none" stroke="%23FFF" stroke-width="2" d="M3 8l3 3 6-6"/></svg>')`,
+                  background: `${theme(
+                    'colors.zinc.800'
+                  )} url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path fill="none" stroke="%23FFF" stroke-width="2" d="M3 8l3 3 6-6"/></svg>')`,
                 },
                 '& + :not([role])': {
                   paddingLeft: 0,
