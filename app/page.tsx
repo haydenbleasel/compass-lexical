@@ -1,8 +1,8 @@
 'use client';
-import type { NextPage } from 'next';
 import dynamic from 'next/dynamic';
 import type { User } from 'firebase/auth';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import { Code, HelpCircle, LogOut, UserPlus, Zap } from 'react-feather';
 import { doc, getDoc, getFirestore } from 'firebase/firestore';
@@ -13,7 +13,7 @@ import Tooltip from '../components/tooltip';
 import Modal from '../components/modal';
 import Login from '../components/login';
 
-const Home: NextPage = () => {
+const Home: FC = () => {
   const auth = getAuth();
   const firestore = getFirestore();
   const [user, setUser] = useState<User | null | undefined>(undefined);
