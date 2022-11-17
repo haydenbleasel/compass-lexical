@@ -7,6 +7,7 @@ import { Provider as TooltipProvider } from '@radix-ui/react-tooltip';
 import { Analytics } from '@vercel/analytics/react';
 import { DefaultSeo } from 'next-seo';
 import Head from 'next/head';
+import useTheme from '@haydenbleasel/use-theme';
 import { firebase, appCheck } from '../lib/firebase';
 
 const title = 'Compass — a simple, ephemeral notes app';
@@ -16,6 +17,7 @@ const description =
 const app = firebase();
 
 const App: FC<AppProps> = ({ Component, pageProps }) => {
+  useTheme();
   useEffect(() => {
     if (typeof window !== 'undefined') {
       appCheck(app);

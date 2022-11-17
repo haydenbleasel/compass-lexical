@@ -1409,6 +1409,13 @@
     stylelint-config-prettier "^9.0.3"
     stylelint-config-standard "^26.0.0"
 
+"@haydenbleasel/use-theme@^1.0.7":
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/@haydenbleasel/use-theme/-/use-theme-1.0.7.tgz#a6b3e55ac80ed6a8dba692366b9718617a63f5b1"
+  integrity sha512-nabNsU22NCSrfGoFpghekNIsLKtcQ2oMpImnxdnLNP3Et3+bHvL48a4TLbXQaGyfv6z2T/vs8DgE23UJxk2ZQQ==
+  dependencies:
+    "@react-hookz/web" "^18.0.1"
+
 "@humanwhocodes/config-array@^0.11.6":
   version "0.11.7"
   resolved "https://registry.yarnpkg.com/@humanwhocodes/config-array/-/config-array-0.11.7.tgz#38aec044c6c828f6ed51d5d7ae3d9b9faf6dbb0f"
@@ -2224,6 +2231,13 @@
   version "16.1.0"
   resolved "https://registry.yarnpkg.com/@react-hookz/web/-/web-16.1.0.tgz#9cf913cbdbe5a9de133a9c897a52e4060a9fed28"
   integrity sha512-yLa3QIwYHWKI0NkY0yd72599GLnWx6yGESBieGmPF/4k30Fe4M0RP06xHcV9qJWxGQsk3Bn5BnBPb2YH6u12vQ==
+  dependencies:
+    "@react-hookz/deep-equal" "^1.0.3"
+
+"@react-hookz/web@^18.0.1":
+  version "18.0.1"
+  resolved "https://registry.yarnpkg.com/@react-hookz/web/-/web-18.0.1.tgz#aa150a6a3e82432a9be816c56bf1b8b1a6d515b3"
+  integrity sha512-c0PBAiiapmpkxzmuuwaAOFwhpKyG1MJdQRsSjVv7vqRyetO+zElPKvGyNh1MN25+uSICNkt4YosYQu81/kbpAA==
   dependencies:
     "@react-hookz/deep-equal" "^1.0.3"
 
