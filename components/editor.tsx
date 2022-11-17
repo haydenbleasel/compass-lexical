@@ -8,6 +8,7 @@ import isEqual from 'react-fast-compare';
 import { LexicalComposer } from '@lexical/react/LexicalComposer';
 import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin';
 import { ContentEditable } from '@lexical/react/LexicalContentEditable';
+import LexicalErrorBoundary from '@lexical/react/LexicalErrorBoundary';
 import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
 import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin';
 import { LinkPlugin } from '@lexical/react/LexicalLinkPlugin';
@@ -112,6 +113,7 @@ const Editor: FC<EditorProps> = ({ defaultContent }) => {
     >
       <LexicalComposer initialConfig={initialConfig}>
         <RichTextPlugin
+          ErrorBoundary={LexicalErrorBoundary}
           contentEditable={<ContentEditable className="outline-none" />}
           placeholder={Placeholder}
         />
