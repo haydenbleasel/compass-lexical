@@ -10,7 +10,7 @@ type TooltipProps = {
 
 const Tooltip: FC<TooltipProps> = ({ label, side, children }) => (
   <Root>
-    <Trigger>{children}</Trigger>
+    <Trigger asChild>{children}</Trigger>
     <Portal>
       <Content
         side={side}

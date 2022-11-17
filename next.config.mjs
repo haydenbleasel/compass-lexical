@@ -14,6 +14,9 @@ const nextConfig = {
   images: {
     formats: ['image/avif', 'image/webp'],
   },
+  experimental: {
+    appDir: true,
+  },
   headers() {
     return [
       {
