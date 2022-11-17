@@ -1,4 +1,4 @@
-import { DefaultSeo } from 'next-seo';
+import { NextSeo } from 'next-seo';
 import type { ReactNode } from 'react';
 
 const title = 'Compass — a simple, ephemeral notes app';
@@ -7,7 +7,7 @@ const description =
 
 const Head = (): ReactNode => (
   <>
-    <DefaultSeo
+    <NextSeo
       title={title}
       description={description}
       openGraph={{
@@ -32,6 +32,7 @@ const Head = (): ReactNode => (
         site: '@haydenbleasel',
         cardType: 'summary_large_image',
       }}
+      useAppDir
     />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
