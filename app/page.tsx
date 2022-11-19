@@ -12,6 +12,11 @@ import Link from 'next/link';
 import Tooltip from '../components/tooltip';
 import Modal from '../components/modal';
 import Login from '../components/login';
+import { firebase } from '../lib/firebase';
+import useAppCheck from '../hooks/useAppCheck';
+import useTheme from '../hooks/useTheme';
+
+const app = firebase();
 
 const Home: FC = () => {
   const auth = getAuth();
@@ -20,6 +25,8 @@ const Home: FC = () => {
   const [defaultContent, setDefaultContent] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [showLogin, setShowLogin] = useState(false);
+  useTheme();
+  useAppCheck(app);
 
   useEffect(() => {
     onAuthStateChanged(auth, (newUser) => {
