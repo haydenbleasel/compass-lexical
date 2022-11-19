@@ -46,7 +46,7 @@
     "react-hot-toast": "^2.4.0"
   },
   "devDependencies": {
-    "@haydenbleasel/harmony": "^1.1.8",
+    "@haydenbleasel/harmony": "^1.1.9",
     "@next/bundle-analyzer": "^13.0.4",
     "@next/eslint-plugin-next": "^13.0.4",
     "@tailwindcss/typography": "^0.5.8",
