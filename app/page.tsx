@@ -1,5 +1,4 @@
 'use client';
-import dynamic from 'next/dynamic';
 import { getAuth } from 'firebase/auth';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
@@ -14,13 +13,13 @@ import useTheme from '../hooks/useTheme';
 import useUser from '../hooks/useUser';
 import useProfile from '../hooks/useProfile';
 import Skeleton from '../components/skeleton';
+import Editor from '../components/editor';
 
 const app = firebase();
 
 const Home: FC = () => {
   const auth = getAuth();
   const user = useUser();
-  const [defaultContent, setDefaultContent] = useState<string | null>(null);
   const [showLogin, setShowLogin] = useState(false);
   const profile = useProfile();
 
@@ -33,28 +32,13 @@ const Home: FC = () => {
     }
   }, [user, showLogin]);
 
-  useEffect(() => {
-    if (profile.data?.content && !defaultContent) {
-      setDefaultContent(profile.data.content);
-    }
-  }, [defaultContent, profile.data?.content]);
-
-  const Editor = dynamic(
-    async () =>
-      import(
-        /* webpackChunkName: "Editor" */
-        '../components/editor'
-      ),
-    { ssr: false }
-  );
-
   if (typeof user === 'undefined' || (user && profile.loading)) {
     return <Skeleton />;
   }
 
   return (
     <div>
-      <Editor defaultContent={defaultContent} />
+      <Editor defaultContent={profile.data?.content} />
       <div className="fixed bottom-4 right-4 flex flex-col gap-2">
         <Tooltip label="Source code" side="left">
           <Link

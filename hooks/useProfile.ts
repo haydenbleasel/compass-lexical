@@ -26,14 +26,12 @@ const useProfile = (): {
 } => {
   const user = useUser();
   const [data, setData] = useState<ProfileProps | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (data ?? !user?.uid) {
       return;
     }
-
-    setLoading(true);
 
     getProfile(user.uid)
       .then(setData)

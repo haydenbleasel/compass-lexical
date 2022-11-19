@@ -34,7 +34,7 @@ const onError = (error: Error) => {
 };
 
 type EditorProps = {
-  defaultContent: string | null;
+  defaultContent: string | null | undefined;
 };
 
 const Placeholder = (

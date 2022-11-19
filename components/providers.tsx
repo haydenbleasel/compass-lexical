@@ -6,11 +6,11 @@ import { Toaster } from 'react-hot-toast';
 import { Analytics } from '@vercel/analytics/react';
 
 const Providers: FC<{ children: ReactNode }> = ({ children }) => (
-  <TooltipProvider>
-    {children}
+  <>
+    <TooltipProvider>{children}</TooltipProvider>
     <Toaster position="bottom-right" />
     <Analytics />
-  </TooltipProvider>
+  </>
 );
 
 export default Providers;

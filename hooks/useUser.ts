@@ -4,9 +4,11 @@ import type { User } from 'firebase/auth';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { useEffect, useState } from 'react';
 
-const useUser = (): User | null => {
+const useUser = (): User | null | undefined => {
   const auth = getAuth();
-  const [data, setData] = useState<User | null>(auth.currentUser);
+  const [data, setData] = useState<User | null | undefined>(
+    auth.currentUser ?? undefined
+  );
 
   useEffect(() => {
     onAuthStateChanged(auth, setData);
