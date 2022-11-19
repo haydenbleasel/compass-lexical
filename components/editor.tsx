@@ -19,19 +19,14 @@ import { AutoLinkPlugin } from '@lexical/react/LexicalAutoLinkPlugin';
 import { AutoScrollPlugin } from '@lexical/react/LexicalAutoScrollPlugin';
 import { MarkdownShortcutPlugin } from '@lexical/react/LexicalMarkdownShortcutPlugin';
 import { HashtagPlugin } from '@lexical/react/LexicalHashtagPlugin';
-import toast from 'react-hot-toast';
-import { getAuth } from 'firebase/auth';
 import { doc, getFirestore, updateDoc } from 'firebase/firestore';
-import type { FirebaseError } from 'firebase/app';
 import { FocusPlugin } from '../plugins/focus';
 import nodes from '../lib/nodes';
 import transformers from '../lib/transformers';
 import sample from '../lib/sample';
 import matchers from '../lib/autolink';
-
-const onError = (error: Error) => {
-  toast.error(error.message);
-};
+import useUser from '../hooks/useUser';
+import { handleError } from '../lib/error';
 
 type EditorProps = {
   defaultContent: string | null | undefined;
@@ -44,6 +39,8 @@ const Placeholder = (
 );
 
 const Editor: FC<EditorProps> = ({ defaultContent }) => {
+  const user = useUser();
+  const firestore = getFirestore();
   const [lastEditorState, setLastEditorState] = useState<EditorState | null>(
     null
   );
@@ -58,7 +55,7 @@ const Editor: FC<EditorProps> = ({ defaultContent }) => {
     {
       namespace: 'Compass',
       editorState: defaultEditorState,
-      onError,
+      onError: handleError,
       nodes,
     };
 
@@ -84,27 +81,23 @@ const Editor: FC<EditorProps> = ({ defaultContent }) => {
 
   const saveContent = () => {
     const content = JSON.stringify(editorState);
-    const { currentUser } = getAuth();
-    const firestore = getFirestore();
 
-    if (!currentUser || !content || isEqual(lastEditorState, editorState)) {
+    if (!user?.uid || !content || isEqual(lastEditorState, editorState)) {
       return;
     }
 
-    const profile = doc(firestore, 'users', currentUser.uid);
+    const profile = doc(firestore, 'users', user.uid);
 
     updateDoc(profile, {
       content,
       lastUpdated: new Date(),
-    }).catch((error) => {
-      toast.error((error as FirebaseError).message);
-    });
+    }).catch(handleError);
 
     setLastEditorState(editorState);
   };
 
   useEventListener(window, 'click', clickEventHandler, { passive: true });
-  useEffect(saveContent, [editorState, lastEditorState]);
+  useEffect(saveContent, [firestore, editorState, lastEditorState, user?.uid]);
 
   return (
     <div

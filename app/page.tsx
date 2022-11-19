@@ -86,20 +86,19 @@ const Home: FC = () => {
           </Tooltip>
         ) : (
           <Modal
-            show={showLogin}
+            open={showLogin}
             title="Login"
             description="Enter an email and password to login or create a new account."
             content={<Login />}
+            onOpenChange={setShowLogin}
           >
             <Tooltip label="Login or signup" side="left">
-              <button
-                type="button"
+              <span
                 aria-label="Login or signup"
                 className="block rounded-full border border-zinc-200 bg-white p-2 dark:border-zinc-700 dark:bg-zinc-800"
-                onClick={() => setShowLogin(true)}
               >
                 <UserPlus size={16} className="text-zinc-900 dark:text-white" />
-              </button>
+              </span>
             </Tooltip>
           </Modal>
         )}

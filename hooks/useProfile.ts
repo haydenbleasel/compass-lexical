@@ -1,7 +1,7 @@
 'use client';
 import { doc, getDoc, getFirestore } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
-import { toast } from 'react-hot-toast';
+import { handleError } from '../lib/error';
 import useUser from './useUser';
 
 type ProfileProps = {
@@ -35,10 +35,7 @@ const useProfile = (): {
 
     getProfile(user.uid)
       .then(setData)
-      .catch((error) => {
-        const message = (error as Error).toString();
-        toast.error(message);
-      })
+      .catch(handleError)
       .finally(() => {
         setLoading(false);
       });

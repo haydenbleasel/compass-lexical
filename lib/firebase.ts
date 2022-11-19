@@ -43,7 +43,6 @@ export const appCheck = (app: FirebaseApp): void => {
     provider: new ReCaptchaV3Provider(
       process.env.NEXT_PUBLIC_RECAPTCHA_SITEKEY ?? ''
     ),
-
     isTokenAutoRefreshEnabled: true,
   });
 };

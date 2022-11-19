@@ -5,10 +5,7 @@ import { appCheck } from '../lib/firebase';
 
 const useAppCheck = (app: FirebaseApp): void => {
   useEffect(() => {
-    if (
-      process.env.NODE_ENV === 'production' &&
-      typeof window !== 'undefined'
-    ) {
+    if (typeof window !== 'undefined') {
       appCheck(app);
     }
   }, [app]);
