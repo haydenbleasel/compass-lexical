@@ -1,72 +1,44 @@
-import type { NextPage } from 'next';
-import dynamic from 'next/dynamic';
-import type { User } from 'firebase/auth';
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
+'use client';
+import { getAuth } from 'firebase/auth';
+import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import { Code, HelpCircle, LogOut, UserPlus, Zap } from 'react-feather';
-import { doc, getDoc, getFirestore } from 'firebase/firestore';
-import toast from 'react-hot-toast';
-import type { FirebaseError } from 'firebase/app';
 import Link from 'next/link';
 import Tooltip from '../components/tooltip';
 import Modal from '../components/modal';
 import Login from '../components/login';
+import { firebase } from '../lib/firebase';
+import useAppCheck from '../hooks/useAppCheck';
+import useTheme from '../hooks/useTheme';
+import useUser from '../hooks/useUser';
+import useProfile from '../hooks/useProfile';
+import Skeleton from '../components/skeleton';
+import Editor from '../components/editor';
 
-const Home: NextPage = () => {
+const app = firebase();
+
+const Home: FC = () => {
   const auth = getAuth();
-  const firestore = getFirestore();
-  const [user, setUser] = useState<User | null | undefined>(undefined);
-  const [defaultContent, setDefaultContent] = useState<string | null>(null);
-  const [loading, setLoading] = useState(true);
+  const user = useUser();
   const [showLogin, setShowLogin] = useState(false);
+  const profile = useProfile();
+
+  useTheme();
+  useAppCheck(app);
 
   useEffect(() => {
-    onAuthStateChanged(auth, (newUser) => {
-      setUser(newUser);
-
-      if (newUser) {
-        setShowLogin(false);
-      }
-    });
-  }, [auth]);
-
-  useEffect(() => {
-    const getProfile = async (uid: string) => {
-      const profileRef = doc(firestore, 'users', uid);
-      const profile = await getDoc(profileRef);
-
-      if (profile.exists()) {
-        const { content } = profile.data() as { content: string | null };
-
-        setDefaultContent(content);
-      }
-
-      setLoading(false);
-    };
-
-    if (user && !defaultContent && loading) {
-      getProfile(user.uid).catch((error) => {
-        toast.error((error as FirebaseError).message);
-      });
+    if (user && showLogin) {
+      setShowLogin(false);
     }
-  }, [defaultContent, firestore, user, loading]);
+  }, [user, showLogin]);
 
-  const Editor = dynamic(
-    async () =>
-      import(
-        /* webpackChunkName: "Editor" */
-        '../components/editor'
-      ),
-    { ssr: false }
-  );
-
-  if (typeof user === 'undefined' || (user && loading)) {
-    return null;
+  if (typeof user === 'undefined' || (user && profile.loading)) {
+    return <Skeleton />;
   }
 
   return (
     <div>
-      <Editor defaultContent={defaultContent} />
+      <Editor defaultContent={profile.data?.content} />
       <div className="fixed bottom-4 right-4 flex flex-col gap-2">
         <Tooltip label="Source code" side="left">
           <Link
